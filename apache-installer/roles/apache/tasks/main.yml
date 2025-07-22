@@ -1,0 +1,37 @@
+---
+- name: Install Apache on Debian-based systems
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+    update_cache: true
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Install Apache on RedHat-based systems
+  ansible.builtin.yum:
+    name: httpd
+    state: present
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: Ensure Apache is started on Debian
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: true
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Ensure Apache is started on RedHat
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: true
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: Deploy default index.html
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ apache_root_path }}/index.html"
+    owner: root
+    group: root
+    mode: '0644'
+  vars:
+    apache_root_path: "{{ '/var/www/html' if ansible_facts['os_family'] == 'Debian' else '/var/www/html' }}"
