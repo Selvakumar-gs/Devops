@@ -1,0 +1,46 @@
+---
+- name: Install Apache Web Server (Ubuntu & RHEL Compatible)
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Detect OS family
+      ansible.builtin.setup:
+        filter: ansible_os_family
+        gather_subset: "!all"
+
+    - name: Install Apache on Debian/Ubuntu
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+        update_cache: yes
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install Apache on RHEL/CentOS
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Start Apache service (Ubuntu)
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Start Apache service (RHEL)
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Print Apache status
+      ansible.builtin.shell: |
+        systemctl status {{ 'apache2' if ansible_facts['os_family'] == 'Debian' else 'httpd' }} | head -n 10
+      register: apache_status
+      changed_when: false
+
+    - debug:
+        var: apache_status.stdout_lines
