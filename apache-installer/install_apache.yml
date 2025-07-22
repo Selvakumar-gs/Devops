@@ -1,0 +1,6 @@
+---
+- name: Install Apache on any Linux
+  hosts: web
+  become: true
+  roles:
+    - apache
