@@ -103,6 +103,7 @@ spec:
               name: SVC_NAME
               port:
                 number: 80
+
 EOF
 
 
