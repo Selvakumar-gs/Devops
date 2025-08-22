@@ -19,7 +19,9 @@ Add host entry >>
 vim /etc/hosts
 10.192.190.152 devxptai.ardianet.net
 10.192.190.152 devxptai-revamp.ardianet.net
+
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 Create a conf file 
 ca_cert.cnf
 server_cert.cnf
@@ -103,6 +105,7 @@ spec:
                 number: 80
 EOF
 
+
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -126,6 +129,7 @@ subjectKeyIdentifier=hash
 authorityKeyIdentifier=keyid:always,issuer 
 
 EOF
+
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Creating Server_cert.cnf file
 cat <<EOF > server_cert.cnf
@@ -142,6 +146,7 @@ organizationName        = dev
 commonName              = dev.example.com
  
 EOF 
+
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Creating Server_ext.cnf file
 
