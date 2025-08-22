@@ -7,8 +7,8 @@ prompt = no
 countryName             = IN
 stateOrProvinceName     = TN
 localityName            = Chennai
-organizationName        = Expleo
-commonName              = Root CA Ardianet
+organizationName        = dev
+commonName              = Root_CA
 
 [ v3_ca ]
 basicConstraints=critical,CA:TRUE
