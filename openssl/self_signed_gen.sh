@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PATH="./devxptai-certs"
+PATH="./dev-certs"
 SERVER_KEY="$PATH/server.key"
 SERVER_CSR="$PATH/server.csr"
 SERVER_CRT="$PATH/$2"
